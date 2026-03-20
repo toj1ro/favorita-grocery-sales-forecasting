@@ -52,7 +52,7 @@ def main():
             all_results[model_name] = compute_all_metrics(y_true, y_pred, get_weights(baseline_merged))
             print(f"  {model_name}: {all_results[model_name]}")
 
-    print("\n=== LIGHTGBM ===")
+    print("\nLIGHTGBM")
     lgbm_preds = run_lightgbm(train, val, test)
     lgbm_merged = test_sf.merge(
         lgbm_preds[["unique_id", "ds", "LGBMRegressor"]],
@@ -63,7 +63,7 @@ def main():
     all_results["LightGBM"] = compute_all_metrics(y_true, y_pred, get_weights(lgbm_merged))
     print(f"  LightGBM: {all_results['LightGBM']}")
 
-    print("\n=== NEURAL MODELS ===")
+    print("\nNEURAL MODELS")
     neural_preds = run_neural_models(trainval_sf)
     neural_merged = test_sf.merge(neural_preds, on=["unique_id", "ds"], how="inner")
 
@@ -74,7 +74,7 @@ def main():
             all_results[model_name] = compute_all_metrics(y_true, y_pred, get_weights(neural_merged))
             print(f"  {model_name}: {all_results[model_name]}")
 
-    print("\n=== RESULTS ===")
+    print("\nRESULTS")
     table = summary_table(all_results)
     print(table)
 
